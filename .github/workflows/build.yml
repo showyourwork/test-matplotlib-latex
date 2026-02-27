@@ -15,7 +15,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install TinyTex for matplotlib LaTeX rendering
+        id: tinytex
+        shell: bash -l {0}
+        run: |
+          wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+          sudo ~/bin/tlmgr install type1cm cm-super underscore
+
       - name: Build the article PDF
+
         id: build
         uses: showyourwork/showyourwork-action@f294fe2eb7275235596ff71c6de7b90d8e849fd6
         with:
@@ -23,3 +31,4 @@ jobs:
         env:
           SANDBOX_TOKEN: "${{ secrets.SANDBOX_TOKEN }}"
           OVERLEAF_TOKEN: "${{ secrets.OVERLEAF_TOKEN }}"
+
